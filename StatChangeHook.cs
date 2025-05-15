@@ -20,9 +20,6 @@ public static class StatChangeHook
             if (stEvent.Reason != StatChangeReason.DealDamageSystem_0)
                 continue;
 
-            int hpChange = (int)Math.Round(stEvent.Change);
-            Helpers.P($"StatChangeSystem change: {stEvent.Change}, {hpChange}");
-
             if (stEvent.Change >= 0)// healing, we don't care about it right now
                 return;
 
@@ -50,10 +47,13 @@ public static class StatChangeHook
 
             int attackerLvl = getGearScore(attackerEntity);
             int defenderLvl = getGearScore(defenderEntity);
-            // Helpers.P($"Attacker: {attackerName} ({attackerPlatformId}), {attackerLvl}");
-            // Helpers.P($"Victim: {victimName} ({victimPlatformId}), {defenderLvl}");
+
             int abilityHash = GetAbilityGUIDHash(stEvent.Source);
-            // Helpers.P($"AbilityHash: {abilityHash}");
+            int hpChange = (int)Math.Round(stEvent.Change);
+            int dmgAmount = Math.Abs(hpChange);
+
+            PvPEventHandlers.OnPvPHit(attackerPlatformId, attackerName, attackerLvl, victimPlatformId, victimName,
+                defenderLvl, abilityHash, dmgAmount);
         }
     }
 

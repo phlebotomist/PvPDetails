@@ -19,23 +19,18 @@ public class PvPEventHandlers
     }
     private static void UpdateDmg(ulong playerId, int dmgAmount, string name)
     {
-        if (PlayerStatStore.PlayerStats.TryGetValue(playerId, out PlayerStats playerStats))
-        {
-            playerStats.Name = name;
-            playerStats.Damage += dmgAmount;
-            PlayerStatStore.PlayerStats[playerId] = playerStats;
-        }
-
+        PlayerStatStore.PlayerStats.TryGetValue(playerId, out PlayerStats playerStats);
+        Helpers.P($"called {playerId}");
+        playerStats.Name = name;
+        playerStats.Damage += dmgAmount;
+        PlayerStatStore.PlayerStats[playerId] = playerStats;
     }
     private static void UpdateDmgTaken(ulong playerId, int dmgAmount, string name)
     {
 
-        if (PlayerStatStore.PlayerStats.TryGetValue(playerId, out PlayerStats playerStats))
-        {
-            playerStats.Name = name;
-            playerStats.DamageTaken += dmgAmount;
-            PlayerStatStore.PlayerStats[playerId] = playerStats;
-        }
-
+        PlayerStatStore.PlayerStats.TryGetValue(playerId, out PlayerStats playerStats);
+        playerStats.Name = name;
+        playerStats.DamageTaken += dmgAmount;
+        PlayerStatStore.PlayerStats[playerId] = playerStats;
     }
 }

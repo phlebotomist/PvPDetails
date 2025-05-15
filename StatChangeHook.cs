@@ -45,8 +45,8 @@ public static class StatChangeHook
             string attackerName = attackerCharacter.Name.ToString();
             string victimName = defenderCharacter.Name.ToString();
 
-            int attackerLvl = getGearScore(attackerEntity);
-            int defenderLvl = getGearScore(defenderEntity);
+            int attackerLvl = Helpers.GetGearScore(attackerEntity);
+            int defenderLvl = Helpers.GetGearScore(defenderEntity);
 
             int abilityHash = GetAbilityGUIDHash(stEvent.Source);
             int hpChange = (int)Math.Round(stEvent.Change);
@@ -66,14 +66,4 @@ public static class StatChangeHook
         return -1;
     }
 
-    private static int getGearScore(Entity entity)
-    {
-        if (entity.Has<Equipment>())
-        {
-            var equipment = entity.Read<Equipment>();
-            float gs = equipment.GetFullLevel();
-            return (int)Math.Round(gs);
-        }
-        return -1;
-    }
 }

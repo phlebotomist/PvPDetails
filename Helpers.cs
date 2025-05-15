@@ -1,3 +1,4 @@
+using System;
 using ProjectM;
 using Unity.Collections;
 using Unity.Entities;
@@ -36,6 +37,16 @@ public static class Helpers
             }
         }
         return null;
+    }
+    public static int GetGearScore(Entity entity)
+    {
+        if (entity.Has<Equipment>())
+        {
+            var equipment = entity.Read<Equipment>();
+            float gs = equipment.GetFullLevel();
+            return (int)Math.Round(gs);
+        }
+        return -1;
     }
 
 }

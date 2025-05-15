@@ -30,7 +30,6 @@ public class PvPEventHandlers
         }
         else if (Settings.CombatBreakdownDetail == 2)
         {
-
             Announcements.SendFightSummary(
                     PlayerStatStore.PlayerStats[killerId],
                     killerLvl,
@@ -56,18 +55,19 @@ public class PvPEventHandlers
             Helpers.P("TODO PVE DEATH");
     }
 
-    public static void OnPvPHit(ulong attackerPlatformId, string attackerName, int attackerLvl, ulong defenderId, string defenderName,
+    public static void OnPvPHit(ulong attackerId, string attackerName, int attackerLvl, ulong defenderId, string defenderName,
     int defenderLvl, int abilityHash, int dmgAmount)
     {
-        UpdateDmg(attackerPlatformId, dmgAmount, attackerName);
+        UpdateDmg(attackerId, dmgAmount, attackerName);
         UpdateDmgTaken(defenderId, dmgAmount, defenderName);
-        PlayerHitStore.AddHit(attackerPlatformId, attackerName, attackerLvl, defenderId, defenderName, defenderLvl, abilityHash, dmgAmount);
+        PlayerHitStore.AddHit(attackerId, attackerName, attackerLvl, defenderId, defenderName, defenderLvl, abilityHash, dmgAmount);
 
     }
 
     private static void UpdateDeaths(ulong playerId)
     {
         PlayerStatStore.PlayerStats.TryGetValue(playerId, out PlayerStats playerStats);
+        playerStats.PlatformId = playerId;
         playerStats.Deaths++;
         playerStats.CurrentKillStreak = 0;
         PlayerStatStore.PlayerStats[playerId] = playerStats;
@@ -75,6 +75,7 @@ public class PvPEventHandlers
     private static void UpdateKills(ulong playerId)
     {
         PlayerStatStore.PlayerStats.TryGetValue(playerId, out PlayerStats ps);
+        ps.PlatformId = playerId;
         ps.Kills++;
         ps.CurrentKillStreak++;
         ps.HighestKillStreak = Math.Max(ps.CurrentKillStreak, ps.HighestKillStreak);
@@ -83,6 +84,7 @@ public class PvPEventHandlers
     private static void UpdateAssist(ulong playerId)
     {
         PlayerStatStore.PlayerStats.TryGetValue(playerId, out PlayerStats playerStats);
+        playerStats.PlatformId = playerId;
         playerStats.Assists++;
         PlayerStatStore.PlayerStats[playerId] = playerStats;
     }
@@ -102,6 +104,7 @@ public class PvPEventHandlers
     private static void UpdateDmg(ulong playerId, int dmgAmount, string name)
     {
         PlayerStatStore.PlayerStats.TryGetValue(playerId, out PlayerStats playerStats);
+        playerStats.PlatformId = playerId;
         playerStats.Name = name;
         playerStats.Damage += dmgAmount;
         PlayerStatStore.PlayerStats[playerId] = playerStats;
@@ -110,6 +113,7 @@ public class PvPEventHandlers
     {
 
         PlayerStatStore.PlayerStats.TryGetValue(playerId, out PlayerStats playerStats);
+        playerStats.PlatformId = playerId;
         playerStats.Name = name;
         playerStats.DamageTaken += dmgAmount;
         PlayerStatStore.PlayerStats[playerId] = playerStats;

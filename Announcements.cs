@@ -57,7 +57,7 @@ public static class Announcements
         int victimLvl,
         PlayerStats killer,
         int killerLvl,
-        string[] assisters,
+        (ulong, string, int)[] assisters,
         double pvpWindowSeconds = 30.0)
     {
         if (!DiscordWebhook.HookEnabled())
@@ -67,7 +67,7 @@ public static class Announcements
         headerSb.Append(GetKillString(killer, killerLvl, victim, victimLvl));
         if (assisters != null && assisters.Length > 0)
         {
-            headerSb.Append($" (assisted by {string.Join(", ", assisters)})");
+            headerSb.AppendLine(GetAssistString(assisters));
         }
 
         // Fetch recent hits
@@ -94,10 +94,11 @@ public static class Announcements
     }
 
     public static void SendFightSummary(
-    PlayerStats victim,
-    int victimLvl,
     PlayerStats killer,
     int killerLvl,
+    PlayerStats victim,
+    int victimLvl,
+    (ulong, string, int)[] assisters,
     double pvpWindowSeconds = 30.0)
     {
         if (!DiscordWebhook.HookEnabled())

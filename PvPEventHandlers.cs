@@ -17,13 +17,38 @@ public class PvPEventHandlers
         UpdateKills(killerId);
         UpdateDeaths(victimId);
         List<(ulong, string, int)> assists = UpdateAssists(killerId, allAttackers);
-        Announcements.SendSimpleKillReport(
-            PlayerStatStore.PlayerStats[killerId],
-            killerLvl,
-            PlayerStatStore.PlayerStats[victimId],
-            victimLvl,
-            assists.ToArray()
+
+
+        if (Settings.CombatBreakdownDetail == 1)
+        {
+            Announcements.SendSimpleKillReport(
+                    PlayerStatStore.PlayerStats[killerId],
+                    killerLvl,
+                    PlayerStatStore.PlayerStats[victimId],
+                    victimLvl,
+                    assists.ToArray());
+        }
+        else if (Settings.CombatBreakdownDetail == 2)
+        {
+
+            Announcements.SendFightSummary(
+                    PlayerStatStore.PlayerStats[killerId],
+                    killerLvl,
+                    PlayerStatStore.PlayerStats[victimId],
+                    victimLvl,
+                    assists.ToArray());
+        }
+        else if (Settings.CombatBreakdownDetail == 3)
+        {
+            Announcements.SendDetailedBreakdown(
+                    PlayerStatStore.PlayerStats[killerId],
+                    killerLvl,
+                    PlayerStatStore.PlayerStats[victimId],
+                    victimLvl,
+                    assists.ToArray()
             );
+        }
+
     }
     public static void OnPvEDeath()
     {

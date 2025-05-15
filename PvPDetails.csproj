@@ -15,14 +15,15 @@
     <PackageReference Include="BepInEx.Unity.IL2CPP" Version="6.0.0-be.691" IncludeAssets="compile" />
     <PackageReference Include="BepInEx.Core" Version="6.0.0-be.691" IncludeAssets="compile" />
     <PackageReference Include="BepInEx.PluginInfoProps" Version="2.*" />
-    <PackageReference Include="VRising.Unhollowed.Client" Version="1.0.*" />
+    <PackageReference Include="VRising.Unhollowed.Client" Version="1.1.*" />
     <PackageReference Include="VRising.VampireCommandFramework" Version="0.9.*" />
+    <PackageReference Include="VRising.Bloodstone" Version="0.2.*" />
   </ItemGroup>
   <ItemGroup>
   <!-- local build of VampireWebhook -->
   <Reference Include="VampireWebhook">
-    <HintPath>C:\Program Files (x86)\Steam\steamapps\common\VRisingDedicatedServer\BepInEx\plugins\VampireWebhook.dll</HintPath>  <!-- adjust path if needed -->
-    <Private>true</Private>                          <!-- copy to output folder -->
+    <HintPath>.\libs\VampireWebhook.dll</HintPath>  <!-- adjust path if needed -->
+    <Private>false</Private>                          <!-- copy to output folder -->
   </Reference>
 </ItemGroup>
 </Project>

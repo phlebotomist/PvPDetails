@@ -82,6 +82,6 @@ public static class VampireDownedHook
         int victimPeakLvl = PlayerHitStore.GetHighestLvlUsedOnKiller(victimId, killerId);
         victimLvl = Math.Max(victimPeakLvl, victimLvl);
         PvPEventHandlers.OnPvPDeath(killerId, killer.Name.ToString(), killerLvl, victimId, victim.Name.ToString(),
-            victimLvl, attackers.Keys.ToArray());
+            victimLvl, attackers);
     }
 }

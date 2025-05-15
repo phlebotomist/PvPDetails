@@ -8,6 +8,22 @@ namespace PvPDetails;
 
 public static class Announcements
 {
+    private static string GetAssistNameAndLvl((ulong, string, int) assist)
+    {
+        return $"**{assist.Item2}** ({assist.Item3})";
+    }
+    private static string GetAssistString((ulong, string, int)[] assisters)
+    {
+        var sb = new StringBuilder();
+        sb.AppendLine($"**Assisters:** ");
+        for (int i = 0; i < assisters.Length; i++)
+        {
+            var assist = assisters[i];
+            sb.Append($"• {GetAssistNameAndLvl(assist)}");
+            sb.Append($"•");
+        }
+        return sb.ToString();
+    }
     private static string GetKillString(PlayerStats killer, int killerLvl, PlayerStats victim, int victimLvl)
     {
         return $"🗡️ **{killer.Name}** ({killerLvl}) killed **{victim.Name}** ({victimLvl}) ☠️";
@@ -16,7 +32,7 @@ public static class Announcements
     /// <summary>
     /// Builds a simple Markdown kill report and sends it.
     /// </summary>
-    public static void SendSimpleKillReport(PlayerStats killer, int killerLvl, PlayerStats victim, int victimLvl, string[] assisters)
+    public static void SendSimpleKillReport(PlayerStats killer, int killerLvl, PlayerStats victim, int victimLvl, (ulong, string, int)[] assisters)
     {
         if (!DiscordWebhook.HookEnabled())
             return;
@@ -25,7 +41,9 @@ public static class Announcements
         sb.AppendLine();
         sb.AppendLine(GetKillString(killer, killerLvl, victim, victimLvl));
         if (assisters != null && assisters.Length > 0)
-            sb.AppendLine($"**Assisters:** {string.Join(", ", assisters)}");
+        {
+            sb.AppendLine(GetAssistString(assisters));
+        }
 
         _ = DiscordWebhook.SendDiscordMessageAsync(sb.ToString());
     }

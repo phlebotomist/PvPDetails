@@ -1,4 +1,5 @@
 using System;
+using System.Collections.Generic;
 
 namespace PvPDetails;
 
@@ -11,11 +12,18 @@ public class PvPEventHandlers
         ulong victimId,
         string victimName,
         int victimLvl,
-        ulong[] allAttackers)
+        Dictionary<ulong, (string, int)> allAttackers)
     {
         UpdateKills(killerId);
         UpdateDeaths(victimId);
-        UpdateAssists(killerId, allAttackers);
+        List<(ulong, string, int)> assists = UpdateAssists(killerId, allAttackers);
+        Announcements.SendSimpleKillReport(
+            PlayerStatStore.PlayerStats[killerId],
+            killerLvl,
+            PlayerStatStore.PlayerStats[victimId],
+            victimLvl,
+            assists.ToArray()
+            );
     }
     public static void OnPvEDeath()
     {
@@ -53,14 +61,17 @@ public class PvPEventHandlers
         playerStats.Assists++;
         PlayerStatStore.PlayerStats[playerId] = playerStats;
     }
-    private static void UpdateAssists(ulong killerId, ulong[] allAttackers)
+    private static List<(ulong, string, int)> UpdateAssists(ulong killerId, Dictionary<ulong, (string, int)> allAttackers)
     {
-        foreach (ulong attacker in allAttackers)
+        var assists = new List<(ulong, string, int)>();
+        foreach (ulong attackerId in allAttackers.Keys)
         {
-            if (attacker == killerId)
+            if (attackerId == killerId)
                 continue;
-            UpdateAssist(attacker);
+            UpdateAssist(attackerId);
+            assists.Add((attackerId, allAttackers[attackerId].Item1, allAttackers[attackerId].Item2));
         }
+        return assists;
     }
 
     private static void UpdateDmg(ulong playerId, int dmgAmount, string name)

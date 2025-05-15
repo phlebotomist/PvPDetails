@@ -34,7 +34,6 @@ public static class VampireDownedHook
     }
     private static void HandleDownedVampire(Entity entity)
     {
-        Helpers.P($"Vampire Downed: {entity}");
         if (!VampireDownedServerEventSystem.TryFindRootOwner(entity, 1, Helpers.Server.EntityManager, out var victimEntity))
         {
             Plugin.L.LogWarning("Failed to get victim entity");

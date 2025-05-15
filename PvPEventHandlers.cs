@@ -1,3 +1,5 @@
+using System;
+
 namespace PvPDetails;
 
 public class PvPEventHandlers
@@ -11,8 +13,9 @@ public class PvPEventHandlers
         int victimLvl,
         ulong[] allAttackers)
     {
-        if (1 == 1)
-            Helpers.P("TODO PVP DEATH");
+        UpdateKills(killerId);
+        UpdateDeaths(victimId);
+        UpdateAssists(killerId, allAttackers);
     }
     public static void OnPvEDeath()
     {
@@ -31,18 +34,33 @@ public class PvPEventHandlers
 
     private static void UpdateDeaths(ulong playerId)
     {
-        if (1 == 1)
-            Helpers.P("TODO UpdateDeaths");
+        PlayerStatStore.PlayerStats.TryGetValue(playerId, out PlayerStats playerStats);
+        playerStats.Deaths++;
+        playerStats.CurrentKillStreak = 0;
+        PlayerStatStore.PlayerStats[playerId] = playerStats;
     }
     private static void UpdateKills(ulong playerId)
     {
-        if (1 == 1)
-            Helpers.P("TODO UpdateKills");
+        PlayerStatStore.PlayerStats.TryGetValue(playerId, out PlayerStats ps);
+        ps.Kills++;
+        ps.CurrentKillStreak++;
+        ps.HighestKillStreak = Math.Max(ps.CurrentKillStreak, ps.HighestKillStreak);
+        PlayerStatStore.PlayerStats[playerId] = ps;
     }
-    private static void UpdateAssists(ulong playerId)
+    private static void UpdateAssist(ulong playerId)
     {
-        if (1 == 1)
-            Helpers.P("TODO UpdateAssists");
+        PlayerStatStore.PlayerStats.TryGetValue(playerId, out PlayerStats playerStats);
+        playerStats.Assists++;
+        PlayerStatStore.PlayerStats[playerId] = playerStats;
+    }
+    private static void UpdateAssists(ulong killerId, ulong[] allAttackers)
+    {
+        foreach (ulong attacker in allAttackers)
+        {
+            if (attacker == killerId)
+                continue;
+            UpdateAssist(attacker);
+        }
     }
 
     private static void UpdateDmg(ulong playerId, int dmgAmount, string name)

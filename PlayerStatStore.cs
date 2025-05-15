@@ -47,4 +47,22 @@ public class PlayerStatStore
             return;
         }
     }
+
+    public static void LoadData()
+    {
+        try
+        {
+            var sw = Stopwatch.StartNew();
+
+            PlayerStats = Storage.Instance.GetAll<PlayerStats>(DB_ID);
+
+            sw.Stop();
+            Plugin.L.LogInfo($"Loaded {PlayerStats.Count} players in {sw.ElapsedMilliseconds} ms");
+        }
+        catch (Exception e)
+        {
+            Plugin.L.LogError($"Failed to load player stats: {e}");
+        }
+    }
+
 }

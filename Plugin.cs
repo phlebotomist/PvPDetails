@@ -27,10 +27,14 @@ public class Plugin : BasePlugin
         _harmony.PatchAll(System.Reflection.Assembly.GetExecutingAssembly());
 
         CommandRegistry.RegisterAll();
+
+        PlayerStatStore.LoadData();
     }
 
     public override bool Unload()
     {
+        PlayerStatStore.SaveData();
+
         CommandRegistry.UnregisterAssembly();
         _harmony?.UnpatchSelf();
         return true;

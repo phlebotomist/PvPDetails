@@ -20,7 +20,6 @@ public class PvPEventHandlers
     private static void UpdateDmg(ulong playerId, int dmgAmount, string name)
     {
         PlayerStatStore.PlayerStats.TryGetValue(playerId, out PlayerStats playerStats);
-        Helpers.P($"called {playerId}");
         playerStats.Name = name;
         playerStats.Damage += dmgAmount;
         PlayerStatStore.PlayerStats[playerId] = playerStats;

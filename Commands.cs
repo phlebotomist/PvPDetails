@@ -43,7 +43,7 @@ public class Commands
         for (int i = 0; i < Math.Min(5, sorted.Count); i++)
         {
             var playerStats = sorted[i];
-            ctx.Reply($"{i + 1}. {playerStats.Name} - {playerStats.GetStat(category)}");
+            ctx.Reply($"{i + 1}. {playerStats.Name}: {playerStats.GetStat(category)}");
         }
     }
 

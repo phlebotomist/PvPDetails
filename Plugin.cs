@@ -10,8 +10,8 @@ namespace PvPDetails;
 [BepInDependency("gg.deca.VampireCommandFramework")]
 [BepInDependency("phlebotomist.morphine.VampireWebhook")]
 [BepInDependency("phlebotomist.morphine.VampireDB")]
-[BepInDependency("gg.deca.Bloodstone")]
-[Bloodstone.API.Reloadable]
+// [BepInDependency("gg.deca.Bloodstone")]
+// [Bloodstone.API.Reloadable]
 public class Plugin : BasePlugin
 {
     Harmony _harmony;

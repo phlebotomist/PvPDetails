@@ -54,7 +54,7 @@ public class PvPEventHandlers
     public static void OnPvEDeath()
     {
         if (1 == 1)
-            Helpers.P("TODO PVE DEATH");
+            Plugin.L.LogInfo($"PVE DEATH");
     }
 
     public static void OnPvPHit(ulong attackerId, string attackerName, int attackerLvl, ulong defenderId, string defenderName,

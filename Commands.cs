@@ -12,7 +12,7 @@ public class Commands
     [Command("pvpme", description: "prints the players stats", adminOnly: true)]
     public void PvPMe(ChatCommandContext ctx)
     {
-        ctx.Reply($"here's your stats {ctx.Name}! {ctx.User.PlatformId}");
+        ctx.Reply($"here's your stats {ctx.Name}!");
         if (PlayerStatStore.PlayerStats.TryGetValue(ctx.User.PlatformId, out PlayerStats playerStats))
         {
             ctx.Reply($"Name: {playerStats.Name}");

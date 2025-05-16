@@ -20,7 +20,7 @@ public static class HookAnnouncements
         {
             var assist = assisters[i];
             sb.Append($"• {GetAssistNameAndLvl(assist)}");
-            sb.Append($"•");
+            sb.Append(" •");
         }
         return sb.ToString();
     }

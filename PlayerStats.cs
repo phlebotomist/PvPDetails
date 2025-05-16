@@ -1,3 +1,5 @@
+using System;
+
 namespace PvPDetails;
 
 public record struct PlayerStats(
@@ -22,5 +24,19 @@ public record struct PlayerStats(
     public int GetTotalDeaths()
     {
         return Deaths + PVEDeaths;
+    }
+
+    public int GetStat(string category)
+    {
+        return category.ToLower() switch
+        {
+            "kills" => Kills,
+            "deaths" => GetTotalDeaths(),
+            "assists" => Assists,
+            "killstreak" => CurrentKillStreak,
+            "highestkillstreak" => HighestKillStreak,
+            "damage" => Damage,
+            _ => throw new ArgumentException($"Invalid category: {category}")
+        };
     }
 }

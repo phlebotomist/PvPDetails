@@ -1,4 +1,4 @@
-# PvPDetials
+# PvPDetails
 
 The mod is still in development! Testing is hard for me because it requires multiple players to pvp. If you experience errors in logs please send them to me on discord or post them in issues on github.
 

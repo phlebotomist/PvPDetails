@@ -6,13 +6,13 @@ using VampireWebhook;
 
 namespace PvPDetails;
 
-public static class Announcements
+public static class HookAnnouncements
 {
     private static string GetAssistNameAndLvl((ulong, string, int) assist)
     {
         return $"**{assist.Item2}** ({assist.Item3})";
     }
-    private static string GetAssistString((ulong, string, int)[] assisters)
+    public static string GetAssistString((ulong, string, int)[] assisters)
     {
         var sb = new StringBuilder();
         sb.AppendLine($"**Assisters:** ");
@@ -143,5 +143,26 @@ public static class Announcements
         }
 
         _ = DiscordWebhook.SendDiscordMessageAsync(sb.ToString());
+    }
+}
+
+public static class ChatAnnouncements
+{
+    public static void SendBasicKillMessage(
+        ulong killerId,
+        string killerName,
+        int killerLvl,
+        ulong victimId,
+        string victimName,
+        int victimLvl,
+        (ulong,
+        string, int)[] assisters)
+    {
+        string assistString = "";
+        if (assisters != null && assisters.Length > 0)
+        {
+            assistString = HookAnnouncements.GetAssistString(assisters);
+        }
+        Helpers.P($"{killerName} ({killerLvl}) killed {victimName} ({victimLvl})! {assistString}");
     }
 }

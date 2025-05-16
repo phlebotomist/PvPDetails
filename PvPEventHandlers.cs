@@ -21,7 +21,7 @@ public class PvPEventHandlers
 
         if (Settings.CombatBreakdownDetail == 1)
         {
-            Announcements.SendSimpleKillReport(
+            HookAnnouncements.SendSimpleKillReport(
                     PlayerStatStore.PlayerStats[killerId],
                     killerLvl,
                     PlayerStatStore.PlayerStats[victimId],
@@ -30,7 +30,7 @@ public class PvPEventHandlers
         }
         else if (Settings.CombatBreakdownDetail == 2)
         {
-            Announcements.SendFightSummary(
+            HookAnnouncements.SendFightSummary(
                     PlayerStatStore.PlayerStats[killerId],
                     killerLvl,
                     PlayerStatStore.PlayerStats[victimId],
@@ -39,7 +39,7 @@ public class PvPEventHandlers
         }
         else if (Settings.CombatBreakdownDetail == 3)
         {
-            Announcements.SendDetailedBreakdown(
+            HookAnnouncements.SendDetailedBreakdown(
                     PlayerStatStore.PlayerStats[killerId],
                     killerLvl,
                     PlayerStatStore.PlayerStats[victimId],
@@ -47,6 +47,8 @@ public class PvPEventHandlers
                     assists.ToArray()
             );
         }
+
+        ChatAnnouncements.SendBasicKillMessage(killerId, killerName, killerLvl, victimId, victimName, victimLvl, assists.ToArray());
 
     }
     public static void OnPvEDeath()

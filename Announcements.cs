@@ -12,7 +12,7 @@ public static class HookAnnouncements
     {
         return $"**{assist.Item2}** ({assist.Item3})";
     }
-    public static string GetAssistString((ulong, string, int)[] assisters)
+    public static string GetDiscordAssistString((ulong, string, int)[] assisters)
     {
         var sb = new StringBuilder();
         sb.AppendLine($"**Assisters:** ");
@@ -42,7 +42,7 @@ public static class HookAnnouncements
         sb.AppendLine(GetKillString(killer, killerLvl, victim, victimLvl));
         if (assisters != null && assisters.Length > 0)
         {
-            sb.AppendLine(GetAssistString(assisters));
+            sb.AppendLine(GetDiscordAssistString(assisters));
         }
 
         _ = DiscordWebhook.SendDiscordMessageAsync(sb.ToString());
@@ -67,7 +67,7 @@ public static class HookAnnouncements
         headerSb.Append(GetKillString(killer, killerLvl, victim, victimLvl));
         if (assisters != null && assisters.Length > 0)
         {
-            headerSb.AppendLine(GetAssistString(assisters));
+            headerSb.AppendLine(GetDiscordAssistString(assisters));
         }
 
         // Fetch recent hits
@@ -148,6 +148,21 @@ public static class HookAnnouncements
 
 public static class ChatAnnouncements
 {
+    private static string GetAssistNameAndLvl((ulong, string, int) assist)
+    {
+        return $"{assist.Item2} ({assist.Item3})";
+    }
+    private static string GetAssistString((ulong, string, int)[] assisters)
+    {
+        var sb = new StringBuilder();
+        sb.AppendLine($"Assisters: ");
+        for (int i = 0; i < assisters.Length; i++)
+        {
+            var assist = assisters[i];
+            sb.Append($"{GetAssistNameAndLvl(assist)}, ");
+        }
+        return sb.ToString();
+    }
     public static void SendBasicKillMessage(
         ulong killerId,
         string killerName,
@@ -161,7 +176,7 @@ public static class ChatAnnouncements
         string assistString = "";
         if (assisters != null && assisters.Length > 0)
         {
-            assistString = HookAnnouncements.GetAssistString(assisters);
+            assistString = GetAssistString(assisters);
         }
         Helpers.P($"{killerName} ({killerLvl}) killed {victimName} ({victimLvl})! {assistString}");
     }

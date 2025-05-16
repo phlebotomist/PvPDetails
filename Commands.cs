@@ -47,6 +47,21 @@ public class Commands
         }
     }
 
+    [Command("pvpcombatlevel", shortHand: "pcl", adminOnly: true)]
+    public void ChangeCombatBreakdownDetailLevel(ChatCommandContext ctx, string v)
+    {
+        try
+        {
+            Settings.CombatBreakdownDetail = int.Parse(v);
+            ctx.Reply($"combat breakdown detail level has been set to: {v}");
+        }
+        catch (Exception)
+        {
+            ctx.Reply($"failed to parse value: {v}, using keeping current value at: {Settings.CombatBreakdownDetail}");
+            ctx.Reply($"Make sure to use a number between 0 and 3.");
+        }
+    }
+
     [Command("pvpme", description: "prints the players stats")]
     public void PvPMe(ChatCommandContext ctx)
     {

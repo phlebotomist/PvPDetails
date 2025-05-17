@@ -20,7 +20,7 @@ public class Commands
         ctx.Reply("pvpdetails loaded happily!");
     }
 
-    [Command("pvptop", shortHand: "ptop", description: "prints the players stats for x category")]
+    [Command("pvptop", shortHand: "ptop", description: "prints the top-5 players for the given category")]
     public void PvPStats(ChatCommandContext ctx, string category)
     {
         if (!Enum.TryParse(category, ignoreCase: true, out PvPCategories choice))
@@ -31,19 +31,30 @@ public class Commands
 
         if (PlayerStatStore.PlayerStats.Count == 0)
         {
-            ctx.Reply("oh no! no one has played yet!");
+            ctx.Reply("Oh no! No one has played yet!");
             return;
         }
 
-        ctx.Reply($"here's the top players for {category}!");
+        // ── colour helpers ────────────────────────────────────────────
+        const string Gold = "#ffaa00";
+        static string GreenB(string txt) => txt.Bold().Color(ChatAnnouncements.assistColor);
+        static string Stat(int num) => num.ToString().Bold().Color(ChatAnnouncements.lvlColor);
+        static string Rank(int r) => $"#{r}".Color(Gold).Bold();
 
-        var sorted = PlayerStatStore.PlayerStats.Values
-            .OrderByDescending(x => x.GetStat(category))
-            .ToList();
-        for (int i = 0; i < Math.Min(5, sorted.Count); i++)
+        // get top 5 in dec order
+        var topPlayers = PlayerStatStore.PlayerStats.Values
+                    .OrderByDescending(p => p.GetStat(category))
+                    .Take(5)
+                    .ToArray();
+
+
+        ctx.Reply(GreenB($"•••••••••••••••••• Top {category} ••••••••••••••••••"));
+
+        for (int i = 0; i < topPlayers.Length; i++)
         {
-            var playerStats = sorted[i];
-            ctx.Reply($"{i + 1}. {playerStats.Name}: {playerStats.GetStat(category)}");
+            var p = topPlayers[i];
+            var line = $"{Rank(i + 1)} {GreenB(p.Name)}: {Stat(p.GetStat(category))}";
+            ctx.Reply(line);
         }
     }
 

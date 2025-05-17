@@ -36,7 +36,7 @@ public record struct PlayerStats(
             "killstreak" => CurrentKillStreak,
             "highestkillstreak" => HighestKillStreak,
             "damage" => Damage,
-            _ => throw new ArgumentException($"Invalid category: {category}")
+            _ => -1
         };
     }
 }

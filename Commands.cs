@@ -62,26 +62,34 @@ public class Commands
         }
     }
 
-    [Command("pvpme", description: "prints the players stats")]
+    [Command("pvpme", description: "prints the player's stats")]
     public void PvPMe(ChatCommandContext ctx)
     {
-        ctx.Reply($"here's your stats {ctx.Name}!");
-        if (PlayerStatStore.PlayerStats.TryGetValue(ctx.User.PlatformId, out PlayerStats playerStats))
+        if (!PlayerStatStore.PlayerStats.TryGetValue(ctx.User.PlatformId, out var s))
         {
-            ctx.Reply($"Name: {playerStats.Name}");
-            ctx.Reply($"Kills: {playerStats.Kills}");
-            ctx.Reply($"Deaths: {playerStats.GetTotalDeaths()}");
-            ctx.Reply($"Assists: {playerStats.Assists}");
-            ctx.Reply($"Current Kill Streak: {playerStats.CurrentKillStreak}");
-            ctx.Reply($"Highest Kill Streak: {playerStats.HighestKillStreak}");
-            ctx.Reply($"Damage: {playerStats.Damage}");
-            ctx.Reply($"Damage Taken: {playerStats.DamageTaken}");
-        }
-        else
-        {
-            ctx.Reply("oh no! you don't exists silly!");
+            ctx.Reply("Oh no! You don't exist, silly!");
+            return;
         }
 
+        static string Label(string text) => text.Color(ChatAnnouncements.assistColor).Bold();
+        static string Value(int number) => number.ToString().Color(ChatAnnouncements.lvlColor).Bold();
+
+        string[] lines =
+        {
+        $"•••••••••••••••••••{ctx.Name}'s PvP Stats •••••••••••••••••••".Bold().Color(ChatAnnouncements.assistColor),
+        $"{Label("Kills:")} {Value(s.Kills)}",
+        $"{Label("Deaths:")} {Value(s.Deaths)}",
+        $"{Label("Assists:")} {Value(s.Assists)}",
+        $"{Label("Current Streak:")} {Value(s.CurrentKillStreak)}",
+        $"{Label("Highest Streak:")} {Value(s.HighestKillStreak)}",
+        $"{Label("Damage Dealt:")} {Value(s.Damage)}",
+        $"{Label("Damage Taken:")} {Value(s.DamageTaken)}"
+        };
+
+        foreach (var line in lines)
+        {
+            ctx.Reply(line);
+        }
     }
 
     //DEBUG COMMANDS:::===================================================================== 

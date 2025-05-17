@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using VampireWebhook;
+using VampireCommandFramework;
 
 namespace PvPDetails;
 
@@ -14,16 +15,13 @@ public static class HookAnnouncements
     }
     public static string GetDiscordAssistString((ulong, string, int)[] assisters)
     {
-        var sb = new StringBuilder();
-        sb.AppendLine($"**Assisters:** ");
-        for (int i = 0; i < assisters.Length; i++)
-        {
-            var assist = assisters[i];
-            sb.Append($"• {GetAssistNameAndLvl(assist)}");
-            sb.Append(" •");
-        }
-        return sb.ToString();
+        if (assisters.Length == 0)
+            return string.Empty;
+
+        var assisterString = string.Join(" • ", assisters.Select(GetAssistNameAndLvl));
+        return $"**Assisters:** • {assisterString}!";
     }
+
     private static string GetKillString(PlayerStats killer, int killerLvl, PlayerStats victim, int victimLvl)
     {
         return $"🗡️ **{killer.Name}** ({killerLvl}) killed **{victim.Name}** ({victimLvl}) ☠️";
@@ -148,21 +146,31 @@ public static class HookAnnouncements
 
 public static class ChatAnnouncements
 {
+
+    public const string nameColor = "#8B0000";
+    public const string assistColor = "#32CD32";
+    public const string lvlColor = "#C0C0C0";
+    public static string Bold(string text)
+    {
+        return Format.Bold(text);
+    }
+    public static string Bold(int num)
+    {
+        return Format.Bold(num.ToString());
+    }
     private static string GetAssistNameAndLvl((ulong, string, int) assist)
     {
-        return $"{assist.Item2} ({assist.Item3})";
+        return $"{Bold(assist.Item2).Color(assistColor)} ({Bold(assist.Item3).Color(lvlColor)})";
     }
     private static string GetAssistString((ulong, string, int)[] assisters)
     {
-        var sb = new StringBuilder();
-        sb.AppendLine($"Assisters: ");
-        for (int i = 0; i < assisters.Length; i++)
-        {
-            var assist = assisters[i];
-            sb.Append($"{GetAssistNameAndLvl(assist)}, ");
-        }
-        return sb.ToString();
+        if (assisters.Length == 0)
+            return string.Empty;
+
+        var assisterString = string.Join(", ", assisters.Select(GetAssistNameAndLvl));
+        return $"Assisters: {assisterString}!";
     }
+
     public static void SendBasicKillMessage(
         ulong killerId,
         string killerName,
@@ -178,6 +186,6 @@ public static class ChatAnnouncements
         {
             assistString = GetAssistString(assisters);
         }
-        Helpers.P($"{killerName} ({killerLvl}) killed {victimName} ({victimLvl})! {assistString}");
+        Helpers.P($"{Bold(killerName).Color(nameColor)} ({Bold(killerLvl).Color(lvlColor)}) killed {Bold(victimName).Color(nameColor)} ({Bold(victimLvl).Color(lvlColor)})! {assistString}");
     }
 }

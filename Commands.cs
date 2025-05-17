@@ -83,4 +83,20 @@ public class Commands
         }
 
     }
+
+    //DEBUG COMMANDS:::===================================================================== 
+    //DEBUG COMMANDS:::===================================================================== 
+    //DEBUG COMMANDS:::===================================================================== 
+
+    [Command("t_ak", adminOnly: true)]
+    public void SelfTestCommand(ChatCommandContext ctx)
+    {
+        DebugTesting.Test_SendBasicKillMessage();
+        ctx.Reply("===SendBasicKillMessage test sent!===");
+    }
+
+    //DEBUG COMMANDS:::===================================================================== 
+    //DEBUG COMMANDS:::===================================================================== 
+    //DEBUG COMMANDS:::===================================================================== 
+
 }

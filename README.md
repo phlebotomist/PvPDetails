@@ -25,7 +25,7 @@ Current category options are [damage, kills, assists]
 ![.pvptop damage](pvptop_dmg.png)
 
 KillFeed example:  
-![KillFeed example](igkill.jpg)
+![KillFeed example](igkill.png)
 
 ## Settings:
 

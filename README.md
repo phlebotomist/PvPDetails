@@ -18,6 +18,13 @@ Commands:
 Current category options are [damage, kills, assists]
 ```
 
+`.pvpme`:
+![](pvpme.png)
+`.pvptop damage`:
+![](pvptop_dmg.png)
+KillFeed example:
+![](igkill.jpg)
+
 ## Settings:
 
 Right now there's only one but there will be many toggles later.

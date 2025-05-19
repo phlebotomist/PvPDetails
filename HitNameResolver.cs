@@ -34,6 +34,7 @@ namespace PvPDetails
         // };
         public static readonly IReadOnlyDictionary<int, string> _guidToName = new Dictionary<int, string>
         {
+            // start AB
             [589474506] = "AmbientLightning Light",
             [-2094079027] = "AmbientLightning Light GameplayStrike",
             [1327173823] = "ApplyWeaponCoating AbilityGroup",
@@ -6929,6 +6930,8 @@ namespace PvPDetails
             [1957872578] = "Unholy WardOfTheDamned Recast Cone",
             [345491926] = "Unholy WardOfTheDamned SpellMod Minion EmpowerBuff",
             [1378825977] = "Unholy WardOfTheDamned SpellMod Minion ShieldBuff",
+
+            // vampire weapon start
             [-1968364229] = "Vampire Axe Frenzy Dash AbilityGroup",
             [1671733210] = "Vampire Axe Frenzy Dash Cast",
             [-1256137731] = "Vampire Axe Frenzy Dash FrenzyBuff",
@@ -7715,6 +7718,8 @@ namespace PvPDetails
             [1914334096] = "Vampire Withered SlowAttack Cast",
             [-593875444] = "Vampire Withered SlowAttack Group",
             [-1101950367] = "Vampire Withered SlowAttack Hit",
+
+            // vampire weapons end?
             [-999342671] = "VampireCliffLeap Travel AbilityGroup",
             [-76116894] = "VampireCliffLeap Travel Cast",
             [-1924122124] = "VampireCliffLeap Travel End",
@@ -8288,7 +8293,25 @@ namespace PvPDetails
             [-1109086376] = "WormTerror Immaterial Buff",
             [1105185654] = "WormTerror MeleeAttack AbilityGroup",
             [-1494228034] = "WormTerror MeleeAttack Cast",
-            [-1630595705] = "WormTerror MeleeAttack Hit"
+            [-1630595705] = "WormTerror MeleeAttack Hit",
+            // END AB
+
+            // START "REMAINDER" manual adds
+            [907164860] = "Chaos Vampire Buff AgonizingFlames",
+            [-649999207] = "Chaos Vampire Buff Combustion",
+            [-1192081135] = "Chaos Vampire Buff Heated",
+            [348724578] = "Chaos Vampire Buff Ignite",
+            [-198740873] = "Chaos Vampire Combust AreaImpact",
+            [1687723202] = "Chaos Vampire Ignite AreaImpact",
+            [-1500081937] = "Chaos Vampire Ignite AreaImpact Soulshard",
+            [27300215] = "Frost Vampire Buff Chill",
+            [612319955] = "Frost Vampire Buff Freeze",
+            [-414011277] = "Frost Vampire Buff IceShield Base",
+            [57946762] = "Frost Vampire Buff IceShield SpellMod",
+            [312176353] = "Frost Vampire Buff NoFreeze Shared DamageTrigger",
+            [-1952476600] = "Frost Vampire Splinter Projectile",
+            [1688343470] = "Frost Vampire Splinter Projectile HitBuff",
+            // END 
         };
     }
 }

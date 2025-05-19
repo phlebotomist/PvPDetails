@@ -38,7 +38,7 @@ public static class HookAnnouncements
         var sb = new StringBuilder();
         sb.AppendLine();
         sb.AppendLine(GetKillString(killer, killerLvl, victim, victimLvl));
-        if (assisters != null && assisters.Length > 0)
+        if (assisters.Length > 0)
         {
             sb.AppendLine(GetDiscordAssistString(assisters));
         }
@@ -63,7 +63,7 @@ public static class HookAnnouncements
             return;
 
         var headerSb = new StringBuilder();
-        headerSb.Append(GetKillString(killer, killerLvl, victim, victimLvl));
+        headerSb.AppendLine(GetKillString(killer, killerLvl, victim, victimLvl));
         if (assisters != null && assisters.Length > 0)
         {
             headerSb.AppendLine(GetDiscordAssistString(assisters));
@@ -126,6 +126,10 @@ public static class HookAnnouncements
         var sb = new StringBuilder();
 
         sb.AppendLine(GetKillString(killer, killerLvl, victim, victimLvl));
+        if (assisters.Length > 0)
+        {
+            sb.AppendLine(GetDiscordAssistString(assisters));
+        }
         sb.AppendLine();
         if (incoming.Count > 0)
         {

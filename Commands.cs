@@ -107,31 +107,31 @@ public class Commands
     //DEBUG COMMANDS:::===================================================================== 
     //DEBUG COMMANDS:::===================================================================== 
 
-    [Command("t_ak", adminOnly: true)]
-    public void Test_AnnounceKill(ChatCommandContext ctx)
-    {
-        DebugTesting.Test_SendBasicKillMessage();
-        ctx.Reply("===Test_SendBasicKillMessage!===");
-    }
+    // [Command("t_ak", adminOnly: true)]
+    // public void Test_AnnounceKill(ChatCommandContext ctx)
+    // {
+    //     DebugTesting.Test_SendBasicKillMessage();
+    //     ctx.Reply("===Test_SendBasicKillMessage!===");
+    // }
 
-    [Command("t_h1", adminOnly: true)]
-    public void Test_HookMessage1(ChatCommandContext ctx)
-    {
-        DebugTesting.Test_SendSimpleKillReport();
-        ctx.Reply("===Test_SendSimpleKillReport!===");
-    }
-    [Command("t_h2", adminOnly: true)]
-    public void Test_HookMessage2(ChatCommandContext ctx)
-    {
-        DebugTesting.Test_SendFightSummary();
-        ctx.Reply("===Test_SendFightSummary!===");
-    }
-    [Command("t_h3", adminOnly: true)]
-    public void Test_HookMessage3(ChatCommandContext ctx)
-    {
-        DebugTesting.Test_SendDetailedBreakdown();
-        ctx.Reply("===Test_SendDetailedBreakdown!===");
-    }
+    // [Command("t_h1", adminOnly: true)]
+    // public void Test_HookMessage1(ChatCommandContext ctx)
+    // {
+    //     DebugTesting.Test_SendSimpleKillReport();
+    //     ctx.Reply("===Test_SendSimpleKillReport!===");
+    // }
+    // [Command("t_h2", adminOnly: true)]
+    // public void Test_HookMessage2(ChatCommandContext ctx)
+    // {
+    //     DebugTesting.Test_SendFightSummary();
+    //     ctx.Reply("===Test_SendFightSummary!===");
+    // }
+    // [Command("t_h3", adminOnly: true)]
+    // public void Test_HookMessage3(ChatCommandContext ctx)
+    // {
+    //     DebugTesting.Test_SendDetailedBreakdown();
+    //     ctx.Reply("===Test_SendDetailedBreakdown!===");
+    // }
 
     //DEBUG COMMANDS:::===================================================================== 
     //DEBUG COMMANDS:::===================================================================== 

@@ -1,5 +1,6 @@
 using System;
 using System.Collections.Generic;
+using VampireWebhook;
 
 namespace PvPDetails;
 
@@ -18,34 +19,40 @@ public class PvPEventHandlers
         UpdateDeaths(victimId);
         List<(ulong, string, int)> assists = UpdateAssists(killerId, allAttackers);
 
-
-        if (Settings.CombatBreakdownDetail == 1)
+        if (DiscordWebhook.HookEnabled()) // we do an outer check as well because calculating hit is expensive
         {
-            HookAnnouncements.SendSimpleKillReport(
-                    PlayerStatStore.PlayerStats[killerId],
-                    killerLvl,
-                    PlayerStatStore.PlayerStats[victimId],
-                    victimLvl,
-                    assists.ToArray());
-        }
-        else if (Settings.CombatBreakdownDetail == 2)
-        {
-            HookAnnouncements.SendFightSummary(
-                    PlayerStatStore.PlayerStats[killerId],
-                    killerLvl,
-                    PlayerStatStore.PlayerStats[victimId],
-                    victimLvl,
-                    assists.ToArray());
-        }
-        else if (Settings.CombatBreakdownDetail == 3)
-        {
-            HookAnnouncements.SendDetailedBreakdown(
-                    PlayerStatStore.PlayerStats[killerId],
-                    killerLvl,
-                    PlayerStatStore.PlayerStats[victimId],
-                    victimLvl,
-                    assists.ToArray()
-            );
+            if (Settings.CombatBreakdownDetail == 1)
+            {
+                HookAnnouncements.SendSimpleKillReport(
+                        PlayerStatStore.PlayerStats[killerId],
+                        killerLvl,
+                        PlayerStatStore.PlayerStats[victimId],
+                        victimLvl,
+                        assists.ToArray());
+            }
+            else if (Settings.CombatBreakdownDetail == 2)
+            {
+                var hits = PlayerHitStore.GetRecentInteractions(victimId);
+                HookAnnouncements.SendFightSummary(
+                        PlayerStatStore.PlayerStats[killerId],
+                        killerLvl,
+                        PlayerStatStore.PlayerStats[victimId],
+                        victimLvl,
+                        assists.ToArray(),
+                        hits);
+            }
+            else if (Settings.CombatBreakdownDetail == 3)
+            {
+                var hits = PlayerHitStore.GetRecentInteractions(victimId);
+                HookAnnouncements.SendDetailedBreakdown(
+                        PlayerStatStore.PlayerStats[killerId],
+                        killerLvl,
+                        PlayerStatStore.PlayerStats[victimId],
+                        victimLvl,
+                        assists.ToArray(),
+                        hits
+                );
+            }
         }
 
         ChatAnnouncements.SendBasicKillMessage(killerId, killerName, killerLvl, victimId, victimName, victimLvl, assists.ToArray());

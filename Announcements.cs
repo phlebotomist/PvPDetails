@@ -56,6 +56,7 @@ public static class HookAnnouncements
         PlayerStats killer,
         int killerLvl,
         (ulong, string, int)[] assisters,
+        IReadOnlyList<HitInteraction> hits,
         double pvpWindowSeconds = 30.0)
     {
         if (!DiscordWebhook.HookEnabled())
@@ -69,7 +70,7 @@ public static class HookAnnouncements
         }
 
         // Fetch recent hits
-        var hits = PlayerHitStore.GetRecentInteractions(victim.PlatformId, pvpWindowSeconds);
+        // var hits = PlayerHitStore.GetRecentInteractions(victim.PlatformId, pvpWindowSeconds);
 
         // Build breakdown lines
         var sb = new StringBuilder();
@@ -97,12 +98,13 @@ public static class HookAnnouncements
     PlayerStats victim,
     int victimLvl,
     (ulong, string, int)[] assisters,
+    IReadOnlyList<HitInteraction> hits,
     double pvpWindowSeconds = 30.0)
     {
         if (!DiscordWebhook.HookEnabled())
             return;
 
-        var hits = PlayerHitStore.GetRecentInteractions(victim.PlatformId, pvpWindowSeconds);
+        // var hits = PlayerHitStore.GetRecentInteractions(victim.PlatformId, pvpWindowSeconds);
         var incoming = new Dictionary<string, double>(StringComparer.OrdinalIgnoreCase);
         var outgoing = new Dictionary<string, double>(StringComparer.OrdinalIgnoreCase);
 

@@ -14,11 +14,11 @@ public class Commands
         Damage,
         // DamageTaken
     }
-    [Command("pvpdetails", shortHand: "pd_", description: "test plugin is loaded loaded", adminOnly: true)]
-    public void testpvpdetails(ChatCommandContext ctx)
-    {
-        ctx.Reply("pvpdetails loaded happily!");
-    }
+    // [Command("pvpdetails", shortHand: "pd_", description: "test plugin is loaded loaded", adminOnly: true)]
+    // public void testpvpdetails(ChatCommandContext ctx)
+    // {
+    //     ctx.Reply("pvpdetails loaded happily!");
+    // }
 
     [Command("pvptop", shortHand: "ptop", description: "prints the top-5 players for the given category")]
     public void PvPStats(ChatCommandContext ctx, string category)

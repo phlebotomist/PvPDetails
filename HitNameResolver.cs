@@ -8312,6 +8312,9 @@ namespace PvPDetails
             [-1952476600] = "Frost Vampire Splinter Projectile",
             [1688343470] = "Frost Vampire Splinter Projectile HitBuff",
             // END 
+            // TODO:
+            // -1576512627
+
         };
     }
 }

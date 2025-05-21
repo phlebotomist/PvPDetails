@@ -1,12 +1,19 @@
-# PvPDetails
+![.logo](logo.png)
 
-The mod is still in development! Testing is hard for me because it requires multiple players to pvp. If you experience errors in logs please send them to me on discord or post them in issues on github.
+# PvPDetails - player stats, killfeed, death recap!
 
-If you have time to help me test shoot me a message on discord (@morphine) I will likely need help just involves you smacking me in game a lot.
+More features to come!
+Please don't hesitate to give feedback I'm all ears. @ me on Vrising mod discord @morphine or dm me.
 
 ## install
 
 Requires: [VampireWebhook](https://github.com/phlebotomist/VampireWebhook) and [VampireDB](https://github.com/phlebotomist/VampireDB) (yes both dlls in vampireDB)
+
+That means you should have `PvPDetails.dll`, `VampireDB.dll`, `lightdb.dll` and `VampireWebHook.dll` all in your plugins folder.
+
+Optional:
+
+- Set up the hook.txt for [VampireWebhook](https://github.com/phlebotomist/VampireWebhook) to get death recaps
 
 ## commands
 
@@ -58,4 +65,4 @@ follow instructions here: [VampireWebhook](https://github.com/phlebotomist/Vampi
 
 # thanks to everyone on the Vrising mod discord!
 
-Deca, Odjit Helskog, Mitch and others who answered my endless coffee fueled questions.
+Deca, Odjit, Helskog, Mitch and others who answered my endless coffee fueled questions.

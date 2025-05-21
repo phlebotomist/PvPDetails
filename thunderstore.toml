@@ -1,0 +1,30 @@
+[package]
+namespace = "morphine"
+name = "PvPDetails"
+versionNumber = "0.1.0"
+description = "Player stats, Killfeeds, Death Recaps!"
+websiteUrl = "https://github.com/phlebotomist/PvPDetails"
+containsNsfwContent = false
+
+[package.dependencies]
+BepInEx-BepInExPack_V_Rising = "1.733.2"
+deca-VampireCommandFramework = "0.10.2"
+morphine-VampireWebhook = "0.1.0"
+morphine-VampireDB = "0.1.0"
+
+
+[build]
+icon = "./logo.png"
+readme = "./README.md"
+outdir = "./build"
+
+[[build.copy]]
+source = "./bin/Debug/net6.0/PvPDetails.dll"
+target = "PvPDetails.dll"
+
+[publish]
+repository = "https://thunderstore.io"
+communities = ["v-rising"]
+
+[publish.categories]
+v-rising = ["oakveil-update", "mods", "server"]

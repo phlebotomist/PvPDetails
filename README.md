@@ -3,17 +3,13 @@
 # PvPDetails - player stats, killfeed, death recap!
 
 More features to come!
-Please don't hesitate to give feedback I'm all ears. @ me on Vrising mod discord @morphine or dm me.
+Please don't hesitate to give feedback I'm all ears. @Morphine on the Vrising modding [Discord](https://vrisingmods.com/discord).
 
 ## install
 
-Requires: [VampireWebhook](https://github.com/phlebotomist/VampireWebhook) and [VampireDB](https://github.com/phlebotomist/VampireDB) (yes both dlls in vampireDB)
+Download all dependencies and put them next to eachother in the plugins folder.
 
-That means you should have `PvPDetails.dll`, `VampireDB.dll`, `lightdb.dll` and `VampireWebHook.dll` all in your plugins folder.
-
-Optional:
-
-- Set up the hook.txt for [VampireWebhook](https://github.com/phlebotomist/VampireWebhook) to get death recaps
+To setup death recaps add your webhook url to `hook.txt`. More instructions [here](https://github.com/phlebotomist/VampireWebhook).
 
 ## commands
 
@@ -66,3 +62,7 @@ follow instructions here: [VampireWebhook](https://github.com/phlebotomist/Vampi
 # thanks to everyone on the Vrising mod discord!
 
 Deca, Odjit, Helskog, Mitch and others who answered my endless coffee fueled questions.
+
+## known issues:
+
+Some weapon/ability names in damage recap may show up as numbers (weapon ID) instead of the name.

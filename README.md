@@ -1,4 +1,4 @@
-![.logo](logo.png)
+![logo](logo.png)
 
 # PvPDetails - player stats, killfeed, death recap!
 

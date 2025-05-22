@@ -14,6 +14,9 @@ public class PlayerStatStore
     private static double totalSaveTime = 0;
     private static int count = 0;
 
+    private const ulong DEBUG_ID = 0xDEADBEEF;
+    private const string DEBUG_NAMES_KEY = $"{DB_ID}:badnames";
+
     public static void SaveData()
     {
         try
@@ -27,11 +30,15 @@ public class PlayerStatStore
                 snapshot = new Dictionary<ulong, PlayerStats>(PlayerStats);
                 foreach (var (id, stats) in snapshot)
                     Storage.Instance.Set(id, DB_ID, stats);
+
+                // Save debug info
+                var debugSnapshot = new HashSet<int>(HitNameResolver.FailedIds);
+                Storage.Instance.Set(DEBUG_ID, DEBUG_NAMES_KEY, debugSnapshot);
             });
 
 
             sw.Stop();
-            Plugin.L.LogInfo($"Saved {PlayerStats.Count} players in {sw.ElapsedMilliseconds} ms");
+            Plugin.L.LogInfo($"Saved {PlayerStats.Count} players && [DNames:{HitNameResolver.FailedIds.Count}] in {sw.ElapsedMilliseconds} ms");
             totalSaveTime += sw.ElapsedMilliseconds;
             count++;
             if (count % 10 == 0)
@@ -56,8 +63,13 @@ public class PlayerStatStore
 
             PlayerStats = Storage.Instance.GetAll<PlayerStats>(DB_ID);
 
+            // this is ugly. VampireDB is stupid
+            Dictionary<ulong, HashSet<int>> ul_failedIds = Storage.Instance.GetAll<HashSet<int>>(DEBUG_NAMES_KEY);
+            if (ul_failedIds.TryGetValue(DEBUG_ID, out var failedIds))
+                HitNameResolver.FailedIds = failedIds;
+
             sw.Stop();
-            Plugin.L.LogInfo($"Loaded {PlayerStats.Count} players in {sw.ElapsedMilliseconds} ms");
+            Plugin.L.LogInfo($"Loaded {PlayerStats.Count} players && [DNames: {failedIds.Count}] in {sw.ElapsedMilliseconds} ms");
         }
         catch (Exception e)
         {

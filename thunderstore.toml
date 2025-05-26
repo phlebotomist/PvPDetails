@@ -1,7 +1,7 @@
 [package]
 namespace = "morphine"
 name = "PvPDetails"
-versionNumber = "0.1.0"
+versionNumber = "0.1.1"
 description = "Player stats, Killfeeds, Death Recaps!"
 websiteUrl = "https://github.com/phlebotomist/PvPDetails"
 containsNsfwContent = false

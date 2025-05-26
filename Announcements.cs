@@ -51,10 +51,10 @@ public static class HookAnnouncements
     /// sends hit by hit breakdown to the webhook.
     /// </summary>
     public static void SendDetailedBreakdown(
-        PlayerStats victim,
-        int victimLvl,
         PlayerStats killer,
         int killerLvl,
+        PlayerStats victim,
+        int victimLvl,
         (ulong, string, int)[] assisters,
         IReadOnlyList<HitInteraction> hits,
         double pvpWindowSeconds = 30.0)

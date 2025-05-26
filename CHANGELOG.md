@@ -1,0 +1,4 @@
+- Fixed some names causing .pvpme and .pvptop to fail due to incorrect parsing of ' during server load
+- Fixed some names in damage breakdowns
+- Add some more detailed logging for failed ids
+- Fix pvpdetail of 3 having killer and victim swapped

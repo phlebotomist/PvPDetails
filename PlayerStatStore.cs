@@ -17,6 +17,8 @@ public class PlayerStatStore
     private const ulong DEBUG_ID = 0xDEADBEEF;
     private const string DEBUG_NAMES_KEY = $"{DB_ID}:badnames";
 
+    private static string StoreName(string raw) => raw?.Replace('\'', '-');
+    private static string LoadName(string data) => data?.Replace('-', '\'');
     public static void SaveData()
     {
         try
@@ -25,11 +27,17 @@ public class PlayerStatStore
 
             Storage.Instance.RunInTransaction(() =>
             {
-                Dictionary<ulong, PlayerStats> snapshot;
 
-                snapshot = new Dictionary<ulong, PlayerStats>(PlayerStats);
-                foreach (var (id, stats) in snapshot)
-                    Storage.Instance.Set(id, DB_ID, stats);
+
+                Dictionary<ulong, PlayerStats> snapshot;
+                snapshot = new Dictionary<ulong, PlayerStats>(PlayerStats.Count);
+
+                foreach (var (id, stats) in PlayerStats)
+                {
+                    var safeStats = stats;
+                    safeStats.Name = StoreName(safeStats.Name);
+                    Storage.Instance.Set(id, DB_ID, safeStats);
+                }
 
                 // Save debug info
                 var debugSnapshot = new HashSet<int>(HitNameResolver.FailedIds);
@@ -61,7 +69,14 @@ public class PlayerStatStore
         {
             var sw = Stopwatch.StartNew();
 
-            PlayerStats = Storage.Instance.GetAll<PlayerStats>(DB_ID);
+            var raw = Storage.Instance.GetAll<PlayerStats>(DB_ID);
+            PlayerStats = new Dictionary<ulong, PlayerStats>(raw.Count);
+            foreach (var (id, stats) in raw)
+            {
+                var copy = stats;
+                copy.Name = LoadName(copy.Name);
+                PlayerStats[id] = copy;
+            }
 
             // this is ugly. VampireDB is stupid
             Dictionary<ulong, HashSet<int>> ul_failedIds = Storage.Instance.GetAll<HashSet<int>>(DEBUG_NAMES_KEY);
